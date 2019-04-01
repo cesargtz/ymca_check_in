@@ -1,0 +1,70 @@
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="ymca_checkin_form_view">
+      <field name="name">ymca.chek_in.form</field>
+      <field name="model">ymca.chek_in</field>
+      <field name="arch" type="xml">
+        <form>
+          <group col="2">
+            <field name="user_zkteco" string="Id de Usuario del Checador"/>
+            <field name="user_id"/>
+            <field name="check_in"/>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="ymca_checkin_tree_view">
+      <field name="name">ymca.chek_in.tree</field>
+      <field name="model">ymca.chek_in</field>
+      <field name="arch" type="xml">
+        <tree string="Check In" default_order="id desc">
+          <field name="user_zkteco" string="Id de Usuario del Checador"/>
+          <field name="user_id"/>
+          <field name="check_in"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="checkin_list_action">
+      <field name="name">ymca check in</field>
+      <field name="res_model">ymca.chek_in</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">Create the first Check in</p>
+      </field>
+    </record>
+    <menuitem id="item_check_in_zk" name="Checador" parent="account.menu_finance_receivables" sequence="150" action="checkin_list_action"/>
+
+    <!--  Inherit -->
+    <record model="ir.ui.view" id="partner_id_zkteco">
+        <field name="name">res_partner.id_zkteco</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="phone" position="before">
+                <field name="user_zk_id"/>
+            </field>
+        </field>
+    </record>
+    <!-- End Inherit -->
+
+  </data>
+</openerp>
+
+
+
+
+<!-- <record id="seq_type_news" model="ir.sequence">
+  <field name="name">News REG</field>
+  <field name="code">code_news</field>
+</record>
+
+<record id="seq_news" model="ir.sequence">
+  <field name="name">reg</field>
+  <field name="code">code_news</field>
+  <field name="prefix">news</field>
+  <field name="padding">2</field>
+  <field name="implementation">no_gap</field>
+</record> -->
