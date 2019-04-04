@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_odoo_10_modules/ymca_chek_in_odoo_10_modules/ymca_chek_in,odoo_10_modules/ymca_chek_in.odoo_10_modules/ymca_chek_in,model_odoo_10_modules/ymca_chek_in_odoo_10_modules/ymca_chek_in,,1,0,0,0
+access_ymca_chek_in,security_ymca_chek_in,model_ymca_chek_in,sales_team.group_sale_salesman,1,1,1,1
+access_partner_ymca_code,security_partner_ymca_code,model_partner_ymca_code,sales_team.group_sale_salesman,1,1,1,1

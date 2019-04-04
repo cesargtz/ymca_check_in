@@ -35,24 +35,44 @@
         <p class="oe_view_nocontent_create">Create the first Check in</p>
       </field>
     </record>
-    <menuitem id="item_check_in_zk" name="Checador" parent="account.menu_finance_receivables" sequence="150" action="checkin_list_action"/>
+    <menuitem id="item_check_in_zk" name="Checador" parent="account.menu_finance_entries" sequence="100" action="checkin_list_action"/>
 
-    <!--  Inherit -->
-    <record model="ir.ui.view" id="partner_id_zkteco">
-        <field name="name">res_partner.id_zkteco</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
-        <field name="arch" type="xml">
-            <field name="phone" position="before">
-                <field name="user_zk_id"/>
-            </field>
-        </field>
+    <!--  Inherit account.voucher -->
+    <record model="ir.ui.view" id="zkteco_last_record_vaoucher">
+      <field name="name">zkteco_last_record</field>
+      <field name="model">account.voucher</field>
+      <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>
+      <field name="arch" type="xml">
+          <field name="date_due" position="after">
+              <field name="check_in" readonly="1" style="color:#337ab7"/>
+          </field>
+      </field>
     </record>
     <!-- End Inherit -->
-
+  </data>
+  <data>
+    <!--  Inherit partner_ymca_coder -->
+    <!-- <record model="ir.ui.view" id="zkteco_create_user_ymca">
+      <field name="name">zkteco_create_user</field>
+      <field name="model">partner_ymca_code</field>
+      <field name="inherit_id" ref="partner_ymca.ymca_code_tree_view"/>
+      <field name="arch" type="xml">
+          <field name="partner" position="after">
+              <field name="name_show"/>
+              <field name="finger"/>
+              <field name="estado" readonly="1"/>
+              <button name="delete_enroll_finger" class="oe_highlight button-zkteck" icon="fa-trash-o"
+                    String="Crear" type="object" help="Borrar Huella"></button>
+          </field>
+          <field name="code" position="before">
+            <button name="create_zkteco_user" class="oe_highlight" style="background:red;" icon="fa-user"
+                  String="Crear" type="object"></button>
+          </field>
+      </field>
+    </record> -->
+    <!-- End Inherit partner_ymca_code -->
   </data>
 </openerp>
-
 
 
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+	<!-- Adds all assets in Odoo -->
+        <template id="assets_backend_zkteco" name="static_resources assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+  		         <link rel="stylesheet" href="ymca_chek_in/static/src/css/style.css"/>
+               <!-- <script type="text/javascript" src="ymca_income_vaoucher/static/src/js/index.js"></script> -->
+            </xpath>
+        </template>
+    </data>
+</openerp>
