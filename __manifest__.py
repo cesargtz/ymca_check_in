@@ -19,6 +19,9 @@
         'views/resources.xml',
         'security/ir.model.access.csv',
         'views/views.xml',
+        'views/disableusers.xml',
+        'views/papperformat.xml',
+        'views/report_vaoucher.xml',
     ],
     # only loaded in demonstration mode
 }

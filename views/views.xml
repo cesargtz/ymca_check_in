@@ -43,8 +43,17 @@
       <field name="model">account.voucher</field>
       <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>
       <field name="arch" type="xml">
+        <button name="action_cancel_draft"  position="after">
+          <button type="object" class="btn-danger"
+              name="open_door" string="Abrir Puerta"/>
+          <button type="object" class="btn-success"
+              name="enable_user" string="Activar Usuario"
+              attrs="{'invisible':[('state_user_zktec', 'not in', ['Desactivado'])]}" />
+        </button>
+        <!--  attrs="{'invisible':[('state_user_zktec', 'in', ['Desactivado'])]}"  -->
           <field name="date_due" position="after">
               <field name="check_in" readonly="1" style="color:#337ab7"/>
+              <field name="state_user_zktec" invisible="1"/>
           </field>
       </field>
     </record>
@@ -52,7 +61,7 @@
   </data>
   <data>
     <!--  Inherit partner_ymca_coder -->
-    <!-- <record model="ir.ui.view" id="zkteco_create_user_ymca">
+    <record model="ir.ui.view" id="zkteco_create_user_ymca">
       <field name="name">zkteco_create_user</field>
       <field name="model">partner_ymca_code</field>
       <field name="inherit_id" ref="partner_ymca.ymca_code_tree_view"/>
@@ -61,30 +70,35 @@
               <field name="name_show"/>
               <field name="finger"/>
               <field name="estado" readonly="1"/>
-              <button name="delete_enroll_finger" class="oe_highlight button-zkteck" icon="fa-trash-o"
-                    String="Crear" type="object" help="Borrar Huella"></button>
+              <!-- <button name="delete_enroll_finger" class="oe_highlight button-zkteck" icon="fa-trash-o"
+                    String="Crear" type="object" help="Borrar Huella"></button> -->
           </field>
           <field name="code" position="before">
             <button name="create_zkteco_user" class="oe_highlight" style="background:red;" icon="fa-user"
                   String="Crear" type="object"></button>
           </field>
+          <tree position="attributes">
+            <attribute name="colors">red: estado == 'Sin Enlazar';green: estado == 'Enlazado';silver: estado == 'Desactivado';</attribute>
+          </tree>
       </field>
-    </record> -->
+    </record>
+
     <!-- End Inherit partner_ymca_code -->
+
+    <!-- res.partner inherit  -->
+    <record model="ir.ui.view" id="res_partner_history_count">
+        <field name="name">res_partner_history_count</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+          <button name="toggle_active" position="after">
+              <button type="object" class="oe_stat_button" nolabel="1" name="split_receptions_tree"  icon="fa-clock-o" >
+                  <field name="check_count" string="Entradas" widget="statinfo"/>
+              </button>
+          </button>
+        </field>
+    </record>
+    <!-- end  res.partner inherit -->
+
   </data>
 </openerp>
-
-
-
-<!-- <record id="seq_type_news" model="ir.sequence">
-  <field name="name">News REG</field>
-  <field name="code">code_news</field>
-</record>
-
-<record id="seq_news" model="ir.sequence">
-  <field name="name">reg</field>
-  <field name="code">code_news</field>
-  <field name="prefix">news</field>
-  <field name="padding">2</field>
-  <field name="implementation">no_gap</field>
-</record> -->

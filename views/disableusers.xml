@@ -1,0 +1,35 @@
+<odoo>
+  <data>
+      <record model="ir.ui.view" id="zkteco_disable_users_wizard">
+            <field name="name">zkteco.disableusers.wizard</field>
+            <field name="model">zkteco.disableusers</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+              <form>
+                <group>
+                    <span>Desactiva los usuario del checador con las fechas de ultimo mes de pago.</span>
+                </group>
+                <group>
+                  <field name="date_start"/>
+                  <field name="date_end"/>
+                </group>
+                <footer>
+                  <button name="set_disable_users" string="Desactivar" type="object" class="oe_highlight" />
+
+                  <button string="Cancel" special="cancelar" class="oe_highlight"/>
+                </footer>
+              </form>
+            </field>
+        </record>
+
+        <record id="action_open_wizard_disable_users" model="ir.actions.act_window">
+          <field name="name">Open Wizard</field>
+          <field name="res_model">zkteco.disableusers</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form</field>
+          <field name="target">new</field>
+        </record>
+
+    <menuitem id="wizard_location" name="Desactivar Usuarios"  parent="account.menu_finance_entries" action="action_open_wizard_disable_users" sequence="120"/>
+  </data>
+</odoo>
