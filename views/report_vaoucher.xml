@@ -22,11 +22,12 @@
                 <h6 style="text-align: center;font-size:14px; margin:0;margin-top:8px;margin-bottom:5px;font-weight:bold;">R.F.C ACJ-680305-CW7</h6>
                 <h6 style="text-align: center;font-size:14px; margin:0;margin-bottom:5px;font-weight:normal;">República de Venezuela No. 80 Col. CTM C.P. 31510</h6>
                 <h6 style="text-align: center;font-size:14px; margin:0;margin-bottom:5px;font-weight:normal;">Cd. Cuauhtémoc, Chih.</h6>
-                <h6 style="text-align: center;font-size:15px; margin:0;margin-bottom:5px;font-weight:normal;">Tel: (625)582-04-00</h6>
+                <h6 style="text-align: center;font-size:15px; margin:0;margin-bottom:5px;font-weight:normal;">Tel: (625)582-04-90</h6>
                 <!-- <br/> -->
                 <div style="display:inline;position:relative;">
                   <p style="text-align: right;margin:0;margin-top:12px">Fecha: <small style="font-size:16px; color:black; font-weight:bold;" t-field="o.date"></small></p>
                   <p style="text-align: right;margin:0;">Folio: <small style="font-size:16px; color:black; font-weight:bold;" t-field="o.number"></small></p>
+                  <p style="text-align: right;margin:0;"> <small style="font-size:14px; color:black; font-weight:normal;" t-field="user.name"></small></p>
                 </div>
               </td>
             </tr>

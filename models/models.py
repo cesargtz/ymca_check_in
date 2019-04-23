@@ -26,10 +26,20 @@ class ymca_voucher_zkteck(models.Model):
     check_in = fields.Datetime(compute="_get_zk_record", string="Ultimo ingreso")
     state_user_zktec = fields.Char(compute="_get_state_user", store=True, readonly=True)
 
+
     @api.onchange('partner_id')
     def _get_state_user(self):
         for rec in self:
-            rec.state_user_zktec = rec.env['partner_ymca_code'].search([('partner', '=', rec.partner_id.id)], limit=1).estado
+            if rec.partner_id:
+                rec.state_user_zktec = rec.env['partner_ymca_code'].search([('partner', '=', rec.partner_id.id)], limit=1).estado
+
+
+    @api.multi
+    def proforma_voucher(self):
+        for rec in self:
+            if rec.partner_id:
+                rec.state_user_zktec = rec.env['partner_ymca_code'].search([('partner', '=', rec.partner_id.id)], limit=1).estado
+            return super(ymca_voucher_zkteck, self).proforma_voucher()
 
 
     @api.onchange('partner_id')
@@ -64,7 +74,11 @@ class ymca_voucher_zkteck(models.Model):
                 users = self.env['res.partner'].search([('parent_id', '=', self.partner_id.id),('family_active','=',True)])
                 for user in users:
                     res = self.enabled_user_zkteco(user.code)
-                    if res != 1:
+                    if res == 1:
+                        self.state_user_zktec = 'Enlazado'
+                        user_zkteco = user.env['partner_ymca_code'].search([('partner.id','=', user.id)])
+                        user_zkteco.write({'estado': "Enlazado"})
+                    else:
                         return {
                             'warning': {
                                 'title': "A occurrido un error.",
@@ -80,7 +94,11 @@ class ymca_voucher_zkteck(models.Model):
                 }
         else:
             res = self.enabled_user_zkteco(self.code_clock)
-            if res != 1:
+            if res == 1:
+                self.state_user_zktec = 'Enlazado'
+                user_zkteco = user.env['partner_ymca_code'].search([('partner.id','=', user.id)])
+                user_zkteco.write({'estado': "Enlazado"})
+            else:
                 return {
                     'warning': {
                         'title': "A occurrido un error.",
@@ -89,7 +107,7 @@ class ymca_voucher_zkteck(models.Model):
                 }
 
 
-    def enabled_user_zkteco(code):
+    def enabled_user_zkteco(self, code):
         user_data = ['enabled', '-',  str(code), '-', '']
         data = ''.join(user_data)
         url = 'http://localhost:4375'
@@ -200,7 +218,6 @@ class DisableUsers(models.TransientModel):
         if users:
             for user in users:
                 user_zkteco = user.env['partner_ymca_code'].search([('partner.id','=', user.id)])
-                print(user_zkteco.name_show)
                 res = self.disableZkteco(user_zkteco.code)
                 if res == 1:
                     user_zkteco.write({'estado': "Desactivado"})
@@ -212,13 +229,12 @@ class DisableUsers(models.TransientModel):
                         }
                     }
 
-    def disableZkteco(code):
-        for rec in self:
-            user_data = ['disable', '-',  str(code), '-', '']
-            data = ''.join(user_data)
-            url = 'http://localhost:4375'
-            response = requests.post(url,data)
-            if response.text == "exitoso":
-                return 1
-            else:
-                return 0
+    def disableZkteco(self, code):
+        user_data = ['disable', '-',  str(code), '-', '']
+        data = ''.join(user_data)
+        url = 'http://localhost:4375'
+        response = requests.post(url,data)
+        if response.text == "exitoso":
+            return 1
+        else:
+            return 0

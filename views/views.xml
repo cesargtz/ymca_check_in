@@ -70,8 +70,8 @@
               <field name="name_show"/>
               <field name="finger"/>
               <field name="estado" readonly="1"/>
-              <!-- <button name="delete_enroll_finger" class="oe_highlight button-zkteck" icon="fa-trash-o"
-                    String="Crear" type="object" help="Borrar Huella"></button> -->
+              <button name="delete_enroll_finger" class="oe_highlight button-zkteck" icon="fa-trash-o"
+                    String="Crear" type="object" help="Borrar Usuario"></button>
           </field>
           <field name="code" position="before">
             <button name="create_zkteco_user" class="oe_highlight" style="background:red;" icon="fa-user"
