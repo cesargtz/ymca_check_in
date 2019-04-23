@@ -28,7 +28,8 @@ class ymca_voucher_zkteck(models.Model):
 
     @api.onchange('partner_id')
     def _get_state_user(self):
-        self.state_user_zktec = self.env['partner_ymca_code'].search([('partner', '=', self.partner_id.id)]).estado
+        for rec in self:
+            rec.state_user_zktec = rec.env['partner_ymca_code'].search([('partner', '=', rec.partner_id.id)], limit=1).estado
 
 
     @api.onchange('partner_id')
