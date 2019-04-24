@@ -71,6 +71,8 @@ class ymca_voucher_zkteck(models.Model):
         if self.packages == 'f':
             res = self.enabled_user_zkteco(self.code_clock)
             if res == 1:
+                user_zkteco = self.env['partner_ymca_code'].search([('partner.id','=', self.partner_id.id)])
+                user_zkteco.write({'estado': "Enlazado"})
                 users = self.env['res.partner'].search([('parent_id', '=', self.partner_id.id),('family_active','=',True)])
                 for user in users:
                     res = self.enabled_user_zkteco(user.code)
@@ -96,7 +98,7 @@ class ymca_voucher_zkteck(models.Model):
             res = self.enabled_user_zkteco(self.code_clock)
             if res == 1:
                 self.state_user_zktec = 'Enlazado'
-                user_zkteco = user.env['partner_ymca_code'].search([('partner.id','=', user.id)])
+                user_zkteco = self.env['partner_ymca_code'].search([('partner.id','=', self.id)])
                 user_zkteco.write({'estado': "Enlazado"})
             else:
                 return {
