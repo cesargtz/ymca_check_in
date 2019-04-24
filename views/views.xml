@@ -77,6 +77,12 @@
             <button name="create_zkteco_user" class="oe_highlight" style="background:red;" icon="fa-user"
                   String="Crear" type="object"></button>
           </field>
+          <field name="partner" position="after">
+            <button name="enable_zkteco_user" class="oe_highlight" style="background:green;" icon="fa-check-square"
+                  String="Activar" type="object"></button>
+            <button name="disable_zkteco_user" class="oe_highlight" style="background:silver;" icon="fa-minus-square"
+                  String="Desactivar" type="object"></button>
+          </field>
           <tree position="attributes">
             <attribute name="colors">red: estado == 'Sin Enlazar';green: estado == 'Enlazado';silver: estado == 'Desactivado';</attribute>
           </tree>

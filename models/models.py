@@ -146,6 +146,24 @@ class create_user_zkteco(models.Model):
                         'message': "Favor de contactar con el administrador del sistema."
                     }
                 }
+    
+    @api.multi
+    def enable_zkteco_user(self):
+        user_data = ['enabled', '-',  str(self.code), '-', '']
+        data = ''.join(user_data)
+        url = 'http://localhost:4375'
+        response = requests.post(url,data)
+        if response.text == "exitoso":
+            self.estado = "Enlazado"
+
+    @api.multi
+    def disable_zkteco_user(self):
+        user_data = ['disable', '-',  str(self.code), '-', '']
+        data = ''.join(user_data)
+        url = 'http://localhost:4375'
+        response = requests.post(url,data)
+        if response.text == "exitoso":
+            self.estado = "Desactivado"
 
     @api.multi
     def delete_enroll_finger(self):
